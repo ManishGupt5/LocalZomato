@@ -1,14 +1,20 @@
 package com.masai.entities;
 
-import java.time.LocalTime;
-
 import java.util.HashMap;
 import java.util.Map;
 
 public class Restaurant extends User {
+
     HashMap<Integer, FoodItem> itemList = new HashMap<>();
-    LocalTime opTime;
-    LocalTime cTime;
+    String opTime;
+    String cTime;
+
+    public Restaurant(String name, String password, String address, String email,
+            String opTime, String cTime) {
+        super(name, password, address, email);
+        this.opTime = opTime;
+        this.cTime = cTime;
+    }
 
     public void addFoodItem(int id, String catagory, String name, int price) {
 
@@ -32,13 +38,14 @@ public class Restaurant extends User {
     public void updateFoodItem(int id, String catagory, String name, int price) {
         if (itemList.containsKey(id)) {
             itemList.replace(id, new FoodItem(id, catagory, name, price));
+            System.out.println("update food item successfully");
         } else {
             System.out.println("Given Id not found");
         }
     }
 
     public void updateRestaurantEmail(String email) {
-        this.setEmail(email);
+        setEmail(email);
     }
 
     public void updateRestaurantName(String name) {
@@ -49,18 +56,21 @@ public class Restaurant extends User {
         setPassword(password);
     }
 
-    public void updateRestaurantOpenTime(LocalTime opTime) {
+    public void updateRestaurantOpenTime(String opTime) {
         this.opTime = opTime;
     }
 
-    public void updateRestaurantClosingTime(LocalTime cTime) {
+    public void updateRestaurantClosingTime(String cTime) {
         this.cTime = cTime;
     }
 
     public void PrintFoodItems() {
+        System.out.println("Food Item List ");
+        System.out.println("----------------");
         for (Map.Entry<Integer, FoodItem> i : itemList.entrySet()) {
             System.out.println("Id : " + i.getKey() + " Category : " + i.getValue().catagory + " Name : "
                     + i.getValue().name + " Price : " + i.getValue().price);
+            System.out.println("----------------");
         }
     }
 
