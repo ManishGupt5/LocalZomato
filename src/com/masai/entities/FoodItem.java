@@ -18,7 +18,8 @@ public class FoodItem implements Comparable<FoodItem> {
         return "FoodItem [id=" + id + ", catagory=" + catagory + ", name=" + name + ", price=" + price + "]";
     }
 
-    @Override
+
+	@Override
     public int hashCode() {
         final int prime = 31;
         int result = 1;

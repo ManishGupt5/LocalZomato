@@ -1,7 +1,7 @@
-package com.masai.exception;
+package com.masai.exceptions;
 
 public class InvalidCredentialsException extends Exception {
-    InvalidCredentialsException(String massage) {
+    public InvalidCredentialsException(String massage) {
         super(massage);
     }
 }
