@@ -14,7 +14,7 @@ public class User implements Serializable {
     }
 
     public User(String name, String username, String password, String address, String email) {
-        super();
+
         this.name = name;
         this.username = username;
         this.password = password;
@@ -64,7 +64,8 @@ public class User implements Serializable {
 
     @Override
     public String toString() {
-        return "User [ name=" + name + "username=" + username + ", address=" + address + ", email=" + email
+        return "User [ name=" + name + "username=" + username + ", address=" +
+                address + ", email=" + email
                 + "]";
     }
 

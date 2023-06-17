@@ -1,25 +1,23 @@
-package com.masai.storage;
+package com.masai.utility;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-
-import java.util.LinkedHashMap;
-
+import java.util.HashMap;
 import java.util.Map;
 
 import com.masai.entities.Customer;
 import com.masai.entities.Restaurant;
 
 public class FileExists {
+    @SuppressWarnings("unchecked")
+    public static Map<String, Restaurant> RestaurantFile() {
 
-    public static Map<Integer, Restaurant> RestaurantFile() {
+        HashMap<String, Restaurant> pFile = null;
 
-        Map<Integer, Restaurant> pFile = null;
-
-        File f = new File("Restaurant.ser");
+        File f = new File("Restaurants.ser");
         boolean flag = false;
         try {
             if (!f.exists()) {
@@ -29,17 +27,19 @@ public class FileExists {
 
             if (flag) {
 
-                pFile = new LinkedHashMap<>();
+                pFile = new HashMap<>();
                 ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(f));
                 oos.writeObject(pFile);
+                oos.close();
                 return pFile;
 
             } else {
 
                 ObjectInputStream ois = new ObjectInputStream(new FileInputStream(f));
-                pFile = (Map<Integer, Restaurant>) ois.readObject();
-                return pFile;
 
+                pFile = (HashMap<String, Restaurant>) ois.readObject();
+                ois.close();
+                return pFile;
             }
 
         } catch (Exception e) {
@@ -48,36 +48,36 @@ public class FileExists {
         return pFile;
     }
 
-    public static Map<String, Customer> customerFile() {
+    @SuppressWarnings("unchecked")
+    public static HashMap<String, Customer> customerFile() {
 
-        Map<String, Customer> cFile = null;
+        HashMap<String, Customer> cFile = null;// String for email
 
-        File f = new File("Customer.ser");
+        File f = new File("Customers.ser");
         boolean flag = false;
         try {
             if (!f.exists()) {
                 f.createNewFile();
                 flag = true;
             }
-
             if (flag) {
 
-                cFile = new LinkedHashMap<>();
+                cFile = new HashMap<>();
                 ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(f));
                 oos.writeObject(cFile);
+                oos.close();
                 return cFile;
 
             } else {
 
                 ObjectInputStream ois = new ObjectInputStream(new FileInputStream(f));
-                cFile = (Map<String, Customer>) ois.readObject();
-
+                cFile = (HashMap<String, Customer>) ois.readObject();
+                ois.close();
                 return cFile;
 
             }
 
         } catch (Exception e) {
-
             System.out.println(e.getMessage());
         }
         return cFile;

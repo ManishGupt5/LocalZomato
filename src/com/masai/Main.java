@@ -2,18 +2,20 @@ package com.masai;
 
 import java.io.FileOutputStream;
 import java.io.ObjectOutputStream;
-import java.util.List;
 import java.util.Map;
+import java.util.HashMap;
 import java.util.Scanner;
 
 import com.masai.entities.Customer;
 import com.masai.entities.Restaurant;
-import com.masai.storage.FileExists;
+import com.masai.exceptions.DuplicateDataException;
+import com.masai.utility.FileExists;
 
 public class Main {
     public static void main(String[] args) throws IllegalArgumentException {
-        Map<Integer, Restaurant> restaurants = FileExists.RestaurantFile();
-        Map<String, Customer> customers = FileExists.customerFile();
+
+        HashMap<String, Restaurant> restaurants = (HashMap<String, Restaurant>) FileExists.RestaurantFile();
+        HashMap<String, Customer> customers = FileExists.customerFile();
 
         try {
             Scanner sc = new Scanner(System.in);
@@ -54,11 +56,12 @@ public class Main {
 
         } finally {
             try {
-                ObjectOutputStream poos = new ObjectOutputStream(new FileOutputStream("./storage/Restaurant.ser"));
+                ObjectOutputStream poos = new ObjectOutputStream(new FileOutputStream("Restaurant.ser"));
                 poos.writeObject(restaurants);
-                ObjectOutputStream coos = new ObjectOutputStream(new FileOutputStream("./storage/Customer.ser"));
+                poos.close();
+                ObjectOutputStream coos = new ObjectOutputStream(new FileOutputStream("Customer.ser"));
                 coos.writeObject(customers);
-
+                coos.close();
                 // update data
             } catch (Exception e) {
 
@@ -67,12 +70,40 @@ public class Main {
         }
     }
 
-    private static void restaurantFunctionality(Scanner sc, Map<Integer, Restaurant> restaurants) {
+    private static void restaurantFunctionality(Scanner sc, Map<String, Restaurant> restaurants) {
+
     }
 
     private static void customerFunctionality(Scanner sc, Map<String, Customer> customers) {
     }
 
-    private static void adminFunctionality(Scanner sc, Map<Integer, Restaurant> restaurants) {
+    private static void adminFunctionality(Scanner sc, Map<String, Restaurant> restaurants) {
+    }
+
+    public static void customerSignup(Scanner sc, Map<String, Customer> customers) throws DuplicateDataException {
+        System.out.println("Enter the following details to Signup");
+
+        try {
+            System.out.println("Enter the unique username");
+
+        } catch (Exception e) {
+
+        }
+        String username = sc.next();
+        System.out.println("Enter the name");
+        String name = sc.next();
+        System.out.println("Enter the password");
+        String pass = sc.next();
+        System.out.println("enter the address");
+        String address = sc.next();
+        System.out.println("Enter the email id");
+        String email = sc.next();
+
+        Customer cus = new Customer(name, username, pass, address, email);
+
+        // CustomerService cusService = new CustomerServiceImpl();
+        // cusService.signUp(cus, customers);
+        System.out.println("customer has Succefully sign up");
+
     }
 }

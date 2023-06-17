@@ -1,4 +1,4 @@
-package com.masai.exception;
+package com.masai.exceptions;
 
 public class AlreadyRegisteredException extends Exception {
     public AlreadyRegisteredException(String msg) {
