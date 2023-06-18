@@ -1,5 +1,7 @@
 package com.masai.entities;
 
+import java.util.Objects;
+
 public class FoodItem implements Comparable<FoodItem> {
     public int id;
     public String catagory;
@@ -18,16 +20,9 @@ public class FoodItem implements Comparable<FoodItem> {
         return "FoodItem [id=" + id + ", catagory=" + catagory + ", name=" + name + ", price=" + price + "]";
     }
 
-
-	@Override
+    @Override
     public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + id;
-        result = prime * result + ((catagory == null) ? 0 : catagory.hashCode());
-        result = prime * result + ((name == null) ? 0 : name.hashCode());
-        result = prime * result + price;
-        return result;
+        return Objects.hash(id, catagory, name, price);
     }
 
     @Override
@@ -40,6 +35,5 @@ public class FoodItem implements Comparable<FoodItem> {
         } else {
             return -1;
         }
-
     }
 }
