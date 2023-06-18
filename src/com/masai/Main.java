@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 
 import java.util.Map;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -13,10 +14,9 @@ import com.masai.entities.Customer;
 import com.masai.entities.FoodItem;
 import com.masai.entities.Restaurant;
 import com.masai.entities.User;
-import com.masai.exceptions.DuplicateDataException;
+
 import com.masai.exceptions.InvalidCredentialsException;
-import com.masai.service.CustomerService;
-import com.masai.service.CustomerServiceImpl;
+
 import com.masai.service.RestaurantService;
 import com.masai.service.RestaurantServicesImpl;
 import com.masai.utility.Admin;
@@ -28,7 +28,7 @@ public class Main {
 
         HashMap<String, Restaurant> restaurants = (HashMap<String, Restaurant>) FileExists.RestaurantFile();
         HashMap<String, Customer> customers = FileExists.customerFile();
-        HashMap<User, FoodItem> foodItems = FileExists.restaurantFoodItem();
+        HashMap<User, ArrayList<FoodItem>> foodItems = FileExists.restaurantFoodItem();
 
         try {
             Scanner sc = new Scanner(System.in);
@@ -95,13 +95,13 @@ public class Main {
     }
 
     private static void restaurantFunctionality(Scanner sc, Map<String, Restaurant> restaurants,
-            HashMap<User, FoodItem> foodItems)
+            HashMap<User, ArrayList<FoodItem>> foodItems)
             throws InputMismatchException, IllegalArgumentException, InvalidCredentialsException {
 
         RestaurantService rService = new RestaurantServicesImpl();
-        rService.login(sc, (HashMap<String, Restaurant>) restaurants);
-        try {
 
+        try {
+            rService.login(sc, (HashMap<String, Restaurant>) restaurants);
             int restaurantPreference = 0;
             do {
                 System.out.println("Please select an option to continue:");
