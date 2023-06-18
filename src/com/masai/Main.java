@@ -10,17 +10,25 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import com.masai.entities.Customer;
+import com.masai.entities.FoodItem;
 import com.masai.entities.Restaurant;
+import com.masai.entities.User;
 import com.masai.exceptions.DuplicateDataException;
 import com.masai.exceptions.InvalidCredentialsException;
+import com.masai.service.CustomerService;
+import com.masai.service.CustomerServiceImpl;
+import com.masai.service.RestaurantService;
+import com.masai.service.RestaurantServicesImpl;
 import com.masai.utility.Admin;
 import com.masai.utility.FileExists;
 
 public class Main {
+
     public static void main(String[] args) throws IllegalArgumentException {
 
         HashMap<String, Restaurant> restaurants = (HashMap<String, Restaurant>) FileExists.RestaurantFile();
         HashMap<String, Customer> customers = FileExists.customerFile();
+        HashMap<User, FoodItem> foodItems = FileExists.restaurantFoodItem();
 
         try {
             Scanner sc = new Scanner(System.in);
@@ -48,7 +56,7 @@ public class Main {
                         customerFunctionality(sc, customers);
                         break;
                     case 3:
-                        restaurantFunctionality(sc, restaurants);
+                        restaurantFunctionality(sc, restaurants, foodItems);
                         break;
                     case 4:
                         System.out.println("successfully existed from the system");
@@ -74,6 +82,10 @@ public class Main {
                 ObjectOutputStream coos = new ObjectOutputStream(new FileOutputStream("Customers.ser"));
                 coos.writeObject(customers);
                 coos.close();
+                ObjectOutputStream foos = new ObjectOutputStream(new FileOutputStream("FoodItems.ser"));
+                foos.writeObject(foodItems);
+                foos.close();
+
             } catch (IOException e) {
                 System.out.println("Error occurred while writing objects to file: " + e.getMessage());
 
@@ -82,8 +94,58 @@ public class Main {
         }
     }
 
-    private static void restaurantFunctionality(Scanner sc, Map<String, Restaurant> restaurants) {
+    private static void restaurantFunctionality(Scanner sc, Map<String, Restaurant> restaurants,
+            HashMap<User, FoodItem> foodItems)
+            throws InputMismatchException, IllegalArgumentException, InvalidCredentialsException {
 
+        RestaurantService rService = new RestaurantServicesImpl();
+        rService.login(sc, (HashMap<String, Restaurant>) restaurants);
+        try {
+
+            int restaurantPreference = 0;
+            do {
+                System.out.println("Please select an option to continue:");
+                System.out.println("1. Add a new Food Item");
+                System.out.println("2. Delete a Food Item");
+                System.out.println("3. Print all Food Items");
+                System.out.println("4. Update a Food Item");
+                System.out.println("5. Logout");
+
+                System.out.println();
+                System.out.print("Enter your choice: ");
+
+                restaurantPreference = sc.nextInt();
+
+                switch (restaurantPreference) {
+                    case 1:
+                        rService.addFoodItem(sc, foodItems);
+                        break;
+                    case 2:
+                        rService.deleteFoodItem(sc, foodItems);
+                        break;
+                    case 3:
+                        rService.printAllFoodItems(sc, foodItems);
+                        break;
+                    case 4:
+                        rService.updateFoodItem(sc, foodItems);
+                        break;
+                    case 5:
+                        System.out.println("Logout successfully");
+                        break;
+                    default:
+                        throw new IllegalArgumentException("Invalid Selection");
+                }
+
+            } while (restaurantPreference != 5);
+        } catch (InputMismatchException e) {
+            System.out.println("Invalid input. Please enter a valid number.");
+
+        } catch (IllegalArgumentException e) {
+            System.out.println("Invalid selection. Please enter a valid choice.");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private static void customerFunctionality(Scanner sc, Map<String, Customer> customers) {
@@ -96,11 +158,11 @@ public class Main {
             int adminPreference = 0;
             System.out.println(" ---------------------------");
             do {
-                System.out.println("Enter option to continue:");
-                System.out.println("1. Add Restaurant ");
-                System.out.println("2. Delete Restaurant ");
-                System.out.println("3. Print All Restaurant");
-                System.out.println("4. Back");
+                System.out.println("Enter an option to continue:");
+                System.out.println("1. Add a Restaurant");
+                System.out.println("2. Delete a Restaurant");
+                System.out.println("3. Print All Restaurants");
+                System.out.println("4. Logout");
                 System.out.println();
                 System.out.print("Enter your choice: ");
 
@@ -117,7 +179,7 @@ public class Main {
                         printRestaurant(restaurants);
                         break;
                     case 4:
-                        System.out.println("successfully existed from the Admin Page");
+                        System.out.println("Logout successfully");
                         break;
                     default:
                         throw new IllegalArgumentException("Invalid Selection");
@@ -141,7 +203,7 @@ public class Main {
         System.out.println("Total Restaurant : " + restaurants.size());
         int x = 1;
         for (Restaurant restaurant : restaurants.values()) {
-            System.out.println("  " + x++ + " : _");
+            System.out.println(x++ + " :");
             System.out.println("Name: " + restaurant.getName());
             System.out.println("Address: " + restaurant.getAddress());
             System.out.println("Username/Email : " + restaurant.getEmail());
@@ -193,7 +255,7 @@ public class Main {
         restaurants.put(newRestaurant.getEmail(), newRestaurant);
 
         System.out.println("Restaurant added successfully!");
-        System.out.println("Logout for updated resturant List");
+
     }
 
 }
