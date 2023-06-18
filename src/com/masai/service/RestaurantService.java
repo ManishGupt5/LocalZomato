@@ -1,5 +1,6 @@
 package com.masai.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.InputMismatchException;
 import java.util.Map;
@@ -17,13 +18,13 @@ public interface RestaurantService {
 	public void login(Scanner sc, HashMap<String, Restaurant> Restaurants)
 			throws InputMismatchException, InvalidCredentialsException;
 
-	public void printAllFoodItems(Scanner sc, HashMap<User, FoodItem> foodItems) throws FoodItemException;
+	public void printAllFoodItems(Scanner sc, HashMap<User, ArrayList<FoodItem>> foodItems) throws FoodItemException;
 
-	public void addFoodItem(Scanner sc, HashMap<User, FoodItem> foodItems) throws DuplicateDataException;
+	public void addFoodItem(Scanner sc, HashMap<User, ArrayList<FoodItem>> foodItems) throws DuplicateDataException;
 
-	public void deleteFoodItem(Scanner sc, HashMap<User, FoodItem> foodItems) throws FoodItemException;
+	public void deleteFoodItem(Scanner sc, HashMap<User, ArrayList<FoodItem>> foodItems) throws FoodItemException;
 
-	public void updateFoodItem(Scanner sc, HashMap<User, FoodItem> foodItems)
+	public void updateFoodItem(Scanner sc, HashMap<User, ArrayList<FoodItem>> foodItems)
 			throws FoodItemException;
 
 }

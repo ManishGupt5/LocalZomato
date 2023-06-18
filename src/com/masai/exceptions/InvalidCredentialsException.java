@@ -1,7 +1,12 @@
 package com.masai.exceptions;
 
 public class InvalidCredentialsException extends Exception {
-    public InvalidCredentialsException(String massage) {
-        super(massage);
+    public InvalidCredentialsException(String message) {
+        super(message);
+    }
+
+    @Override
+    public String toString() {
+        return getMessage();
     }
 }
