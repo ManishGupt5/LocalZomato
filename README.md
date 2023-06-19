@@ -4,8 +4,8 @@ LocaLZomaato is a console based food ordering mini Project, inspired by the succ
 
 ## Tech Stack
 - Programming Language: Java
-- Integrated Development Environment (IDE): VS Code, Spring Tool Suite 4 (STS 4)
-- Version Control System: Git, Gitbash
+- Integrated Development Environment (IDE): VS Code and sometimes Spring Tool Suite 4 (STS 4)
+- Version Control System: Git
 - Code Repository: GitHub
 
 
