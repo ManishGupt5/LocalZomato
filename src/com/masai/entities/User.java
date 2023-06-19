@@ -69,10 +69,13 @@ public class User implements Serializable {
         if (this == obj) {
             return true;
         }
+
         if (obj == null || getClass() != obj.getClass()) {
             return false;
         }
+
         User otherUser = (User) obj;
+
         return Objects.equals(name, otherUser.name) &&
                 Objects.equals(password, otherUser.password) &&
                 Objects.equals(address, otherUser.address) &&

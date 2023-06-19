@@ -26,7 +26,7 @@ public class Main {
 
     public static void main(String[] args) throws IllegalArgumentException {
 
-        HashMap<String, Restaurant> restaurants = (HashMap<String, Restaurant>) FileExists.RestaurantFile();
+        HashMap<String, Restaurant> restaurants = FileExists.RestaurantFile();
         HashMap<String, Customer> customers = FileExists.customerFile();
         HashMap<User, ArrayList<FoodItem>> foodItems = FileExists.restaurantFoodItem();
 
@@ -66,12 +66,13 @@ public class Main {
                 }
 
             } while (preference != 4);
-        } catch (InputMismatchException e) {
+        } catch (InputMismatchException a) {
             System.out.println("Invalid input. Please enter a valid number.");
 
-        } catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException b) {
             System.out.println("Invalid selection. Please enter a valid choice.");
-
+        } catch (InvalidCredentialsException c) {
+            c.printStackTrace();
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -85,12 +86,12 @@ public class Main {
                 ObjectOutputStream foos = new ObjectOutputStream(new FileOutputStream("FoodItems.ser"));
                 foos.writeObject(foodItems);
                 foos.close();
-
+                System.out.println("Project Ended Successfully");
             } catch (IOException e) {
                 System.out.println("Error occurred while writing objects to file: " + e.getMessage());
-
                 System.out.println(e.getMessage());
             }
+
         }
     }
 
@@ -142,7 +143,6 @@ public class Main {
 
         } catch (IllegalArgumentException e) {
             System.out.println("Invalid selection. Please enter a valid choice.");
-
         } catch (Exception e) {
             e.printStackTrace();
         }
