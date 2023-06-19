@@ -8,7 +8,7 @@ public class DuplicateDataException extends Exception {
 
 	@Override
 	public String toString() {
-		return getMessage();
+		return "" + getMessage();
 	}
 
 }

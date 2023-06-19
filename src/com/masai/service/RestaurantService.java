@@ -3,7 +3,6 @@ package com.masai.service;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.InputMismatchException;
-import java.util.Map;
 import java.util.Scanner;
 
 import com.masai.entities.FoodItem;
