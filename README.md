@@ -20,12 +20,12 @@ The primary stakeholders of the LocaLZomaato console application are:
 The roles and responsibilities for each stakeholder are given below.
 
 ### Administrator Role:
-#### The Administrator plays a crucial role in managing the platform. Administrator is responsible for 
 - Add restaurants to the platform
 - Remove restaurant from the platform
 - View details list of restaurants 
+ ### Restaurant Owner Role:
+- Login into project 
+- Add or remove items from their Menu List(FoodItem)
+- View all Menu List 
 
-
-
-#### LocaLZomaato is an individual console based mini project, within a 5-day timespan
-#### By Manish Kumar Gupt 
+#####  Manish Kumar Gupt 
