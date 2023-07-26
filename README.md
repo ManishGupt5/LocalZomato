@@ -1,9 +1,9 @@
 # LocalZomaato
 
-LocaLZomaato is a console based food ordering mini Project, inspired by the successful real-world online food ordering system. The goal is to simplify the food ordering process by building a real world project.
+LocaLZomaato is a console based food ordering mini Project with Serialization data feature , inspired by the successful real-world online food ordering system. The goal is to simplify the food ordering process by building a real world project.
 
 ## Tech Stack
-- Programming Language: Java
+- Programming Language: Java 
 - Integrated Development Environment (IDE): VS Code
 - Version Control System: Git
 - Code Repository: GitHub
