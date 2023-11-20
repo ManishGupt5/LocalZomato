@@ -1,4 +1,4 @@
-# LocalZomaato
+# LocalZomato
 
 LocaLZomaato is a console based food ordering mini Project with Serialization data feature , inspired by the successful real-world online food ordering system. The goal is to simplify the food ordering process by building a real world project.
 
